@@ -1,0 +1,36 @@
+Here’s how to run Jupyter Notebook on a compute node using qlogin and port forwarding. It’s a little bit tricky.
+ 
+1. Log in to one of the two login nodes. * Remember the login node name.
+2. Run qlogin. * Remember the name of the compute node assigned to you.
+3. Load the Python module you need.
+4. Run jupyter notebook --no-browser. * Check the message and remember the port assigned to Jupyter Notebook. It's usually 8888, but could be some other number like 8889.
+5. Open another session and log in to the same login node.
+6. Run ssh COMPUTE_NODE_NAME.hpc -L 8888:localhost:JUPYTER_NOTEBOOK_PORT -N.
+* If 8888 is already being used by other user, try 8889, 8890, … until you make it. Remember the port number. 
+* Here, the JUPYTER_NOTEBOOK_PORT is the port number assigned to the Jupyter Notebook at step 4.
+7. On your local workstation or laptop, run ssh LOGIN_NODE_NAME.hpc.uiowa.edu -L 8888:localhost:8888 -N.
+* Here, the second 8888 must be the same as the 8888 at step 6. If you used 8889 instead of 8888 at step 6, it should be:
+  run ssh LOGIN_NODE_NAME.hpc.uiowa.edu -L 8888:localhost:8889 –N
+8. Run your web browser and access http://localhost:8888.
+ 
+Here’s how the port forwarding works:
+MyLocalComputer:8888 à 8888:HPCLoginNode:8888 à 8888:HPCComputeNode
+ 
+ssh argon-login-1.hpc.uiowa.edu
+qlogin -q JM-GPU -pe smp 16
+#Copy node name
+module load cuda  #cuda/8.0.61 
+module load cudnn  #cudnn/5.1_cuda-8.0.61
+source activate theano
+cd /Dedicated/jmichaelson-wdata/mcrichter
+jupyter notebook --no-browser
+
+#open new terminal
+ssh argon-login-1.hpc.uiowa.edu
+ssh <COMPUTE_NODE_NAME>.hpc -L 8888:localhost:<JUPYTER_NOTEBOOK_PORT> -N
+#if used try 8889:localhost:<JUPYTER_NOTEBOOK_PORT>, 8890:localhost:<JUPYTER_NOTEBOOK_PORT>, ...
+# USUALLY: ssh argon-hm-p100-compute-7-32.hpc -L 8890:localhost:8888 -N
+
+#open new terminal
+ssh argon-login-1.hpc.uiowa.edu -L 8888:localhost:<8888, 8889, 8890,...> -N
+
