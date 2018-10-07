@@ -36,6 +36,31 @@ def basic_cnn(input_shape, optimizer="adam", loss="mse"):
     model.compile(loss=loss, optimizer=optimizer)
     return model
 
+def no_pooling_cnn():
+# https://www.spiedigitallibrary.org/conference-proceedings-of-spie/10575/105751S/Classification-of-brain-MRI-with-big-data-and-deep-3D/10.1117/12.2293719.full?tab=ArticleLink
+    model = Sequential()
+
+    #INPUT LAYER
+    model.add(Convolution3D(45, (5,5,5), stride = (2,2,2) activation='relu', input_shape=input_shape, data_format = 'channels_first'))
+    model.add(Convolution3D(60, (5,5,5), stride = (2,2,2),  activation='relu'))
+    model.add(Dropout(0.3))
+    model.add(Convolution3D(100, (3,3,3), stride=(2,2,2), activation='relu')))
+    model.add(Dropout(0.3))
+    model.add(Convolution3D(128, (3,3,3), stride=(2,2,2), activation='relu')))
+    model.add(Dropout(0.3))
+    model.add(Convolution3D(256, (3,3,3), stride=(2,2,2), activation='relu')))
+    model.add(Dropout(0.3))
+    model.add(Convolution3D(512, (3,3,3), stride=(2,2,2), activation='relu')))
+
+    model.add(Flatten())
+    model.add(Dense(512, activation='relu'))
+    # OUTPUT LAYER
+    model.add(Dense(1))
+
+    model.compile(loss=loss, optimizer=optimizer)
+    return model
+
+
 def basic_nn(input_shape, optimizer="adam", loss="mse"):
 
     model = Sequential()
