@@ -23,3 +23,5 @@ The goal is to do lesion symptom mapping using deep learning. We have multiple a
 2. A few custom models written with keras are in `custom_models.py` and can be imported
 
 3. A complete 3D CNN pipeline with parameter optimization and cross validation is in `cnn.ipynb`
+
+4. Cool visualizations of the lesion masks are at `/visualisaztion/`
