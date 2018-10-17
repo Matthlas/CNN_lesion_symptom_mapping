@@ -1,6 +1,6 @@
 # Using CNNs for lesion symptom mapping
 Project for the 2018 [HACKUIOWA](https://bigdata.uiowa.edu/) Hackathon.  
-  
+
 ## Data
 We have data for ~400 stroke patients containing manually created lesion masks from MRI images, behaviour scores and LESYMAP results.  
 Additionally we have the same data + T1 weighted MRIs for ~100 stroke patients.  
@@ -15,3 +15,11 @@ The goal is to do lesion symptom mapping using deep learning. We have multiple a
 2. Use Convolutional Neural Networks using the 3D lesion map as input and one or multiple behavioural scores as label.\
 
 3. Use [NiftyNet](http://www.niftynet.io/) which is an open source convolutional neural networks platform for medical image analysis and image-guided therapy to predict behaviour scores. In this case the input could be the entire T1 weighted MRI scan and the lesion map as an additional stream.
+
+## Important files
+
+1. A number of data preprocessing steps (loading, histogram normalization, exploration) are in `Data exploration and preprocessing.ipynb`
+
+2. A few custom models written with keras are in `custom_models.py` and can be imported
+
+3. A complete 3D CNN pipeline with parameter optimization and cross validation is in `cnn.ipynb`
